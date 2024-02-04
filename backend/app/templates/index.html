@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web Page</title>
+
+    <!-- Include the Socket.IO client library from the CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+
+    <!-- Your other head elements go here -->
+</head>
+<body>
+    <!-- Your page content goes here -->
+    <div>
+        <!-- Your actual page content -->
+        <h1>Welcome to Your Web Page</h1>
+        <p>This is where your content goes...</p>
+    </div>
+
+    <!-- Your other body elements go here -->
+    <div>
+        <!-- Your other body elements -->
+        <button onclick="sendMessage(2, 'Hello, this is a test message!')">Send Test Message</button>
+    </div>
+
+    <!-- Your existing WebRTC script goes here -->
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('private_message', function (data) {
+            // Handle private text message
+            console.log('Received private message:', data);
+            // Update your UI to display the message
+        });
+
+        // Add logic to get the current user's ID
+        const currentUser = {
+            id: 1,  // Replace with the actual user ID retrieval logic
+        };
+
+        // Add functions to send private messages
+        function sendMessage(receiverId, messageText) {
+            const data = {
+                receiver_id: receiverId,
+                sender_id: currentUser.id,
+                message_text: messageText
+            };
+            socket.emit('private_message', data);
+        }
+    </script>
+</body>
+</html>
