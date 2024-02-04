@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, TIMESTAMP
 from flask_login import UserMixin
 from app.models.messages import Messages 
+from app.models.virtual_gifts import VirtualGifts 
 from app import db, bcrypt  # Import db and bcrypt
 
 class Users(db.Model, UserMixin):  # Use db.Model as the base class
@@ -34,3 +35,5 @@ class Users(db.Model, UserMixin):  # Use db.Model as the base class
     profile = db.relationship('Profiles', back_populates='user')
     sent_messages = db.relationship('Messages', foreign_keys='Messages.sender_id', back_populates='sender')
     received_messages = db.relationship('Messages', foreign_keys='Messages.receiver_id', back_populates='receiver')
+    sent_gifts = db.relationship('VirtualGifts', foreign_keys=[VirtualGifts.sender_id], back_populates='sender')
+    received_gifts = db.relationship('VirtualGifts', foreign_keys=[VirtualGifts.receiver_id], back_populates='receiver')
