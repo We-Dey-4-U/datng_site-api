@@ -45,17 +45,20 @@ def create_app():
     from app.routes.matches_routes import matches_blueprint
     from app.routes.messages_routes import messages_blueprint
     from app.routes.virtual_gifts_routes import virtual_gifts_blueprint
+    from app.routes.icebreakers_routes import icebreakers_blueprint
 
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(profile_blueprint, url_prefix='/profile')
     app.register_blueprint(matches_blueprint, url_prefix='/matches')
     app.register_blueprint(messages_blueprint, url_prefix='/messages')
     app.register_blueprint(virtual_gifts_blueprint, url_prefix='/virtual_gifts')
+    app.register_blueprint(icebreakers_blueprint, url_prefix='/icebreakers')
 
     # Import models for SQLAlchemy
     from app.models.user import Users
     from app.models.messages import Messages
     from app.models.virtual_gifts import VirtualGifts
+    from app.models.icebreakers import Icebreakers
 
     @login_manager.user_loader
     def load_user(user_id):

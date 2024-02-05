@@ -15,10 +15,11 @@ def register():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
+    creator_id = data.get('creator_id')  # Include creator_id in the request
 
     try:
-        register_user(username, email, password)
-        return jsonify({'message': 'User registered successfully'}), 201
+        register_user(username, email, password, creator_id=creator_id)
+        return jsonify({'message': 'User created successfully'}), 201
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 

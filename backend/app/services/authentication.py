@@ -16,10 +16,10 @@ SECRET_KEY = 'your_secret_key'
 # Create a URLSafeTimedSerializer instance
 serializer = URLSafeTimedSerializer(SECRET_KEY)
 
-def register_user(username, email, password):
+def register_user(username, email, password, creator_id=None):
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     
-    new_user = Users(username=username, email=email, password_hash=hashed_password)
+    new_user = Users(username=username, email=email, password_hash=hashed_password, creator_id=creator_id)
     
     db_session = db.session
     try:
